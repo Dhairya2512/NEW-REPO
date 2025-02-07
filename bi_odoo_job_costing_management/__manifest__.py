@@ -3,7 +3,7 @@
 
 {
     'name': 'Project Job Costing and Job Cost Sheet With Material Request Odoo',
-    'version': '18.0.0.3',
+    'version': '18.0.0.4',
     'category': 'Projects',
     'summary': """Apps Construction Job Costing construction Cost Sheet job contracting system Construction job order Material Planning On Job Order Construction Material request purchase Material request construction Vendor Contractors Labour estimation Construction Budget""",
     'description': """

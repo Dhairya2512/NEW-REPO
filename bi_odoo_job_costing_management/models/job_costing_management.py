@@ -180,7 +180,7 @@ class JobCostSheet(models.Model):
         budget_lines += [
             (0, 0, {
                 "general_budget_id": budget_post.id,
-                "analytic_account_id": self.analytic_ids.id,
+                "analytic_account_id": self.project_id.account_id.id,
                 "product_id": line.product_id.id,
                 "material_qty": line.quantity,
                 "planned_amount": line.unit_price,
