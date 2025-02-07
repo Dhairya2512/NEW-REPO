@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="crm_lead_view_form_inherited" model="ir.ui.view">
+            <field name="name">crm.lead.view.form.inherited</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_sale_quotations_new']" position="attributes">
+                    <attribute name="invisible">stage_id != 4</attribute>
+                </xpath>
+                <xpath expr="//button[@name='action_view_sale_order']" position="after">
+                    <button name="action_view_estimations"
+                            type="object"
+                            class="oe_stat_button">
+                            <field name="estimation_count" widget="statinfo" string="Estimation"/>
+                        </button>
+                </xpath>
+                <xpath expr="//header" position="inside">
+                    <button name="action_open_estimation_form" string="Estimation"
+                            type="object" class="oe_highlight" data-hotkey="b"
+                            invisible="stage_id != 4 or estimation_count &gt; 0"/>
+                </xpath>
+
+                <xpath expr="//page[@name='lead']" position="after">
+                    <page name="scope_of_work" string="Scope of Work">
+                        <group>
+                            <field name="scope_of_work"/>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

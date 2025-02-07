@@ -1,0 +1,74 @@
+<odoo>
+    <!-- list View -->
+    <record id="view_proforma_invoice_list" model="ir.ui.view">
+        <field name="name">proforma.invoice.list</field>
+        <field name="model">proforma.invoice</field>
+        <field name="arch" type="xml">
+            <list string="Proforma Invoices">
+                <field name="name"/>
+                <field name="partner_id"/>
+                <field name="date_invoice"/>
+                <field name="validity_date"/>
+                <field name="amount_total"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_proforma_invoice_form" model="ir.ui.view">
+        <field name="name">proforma.invoice.form</field>
+        <field name="model">proforma.invoice</field>
+        <field name="arch" type="xml">
+            <form string="Proforma Invoice">
+                <header>
+                    <button name="action_draft" string="Reset to Draft" type="object" class="oe_highlight" invisible="state not in ['cancelled']"/>
+                    <button name="action_sent" string="Sent ProForma" type="object" class="oe_highlight" invisible="state not in ['draft',]"/>
+                    <button name="action_confirm" string="Confirm" type="object" class="oe_highlight" invisible="state not in ['draft','sent']"/>
+                    <button name="action_Cancel" string="Cancel" type="object" class="oe_highlight" invisible="state not in ['draft', 'sent', 'confirmed']"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,sent,confirmed,cancelled"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" readonly="1"/>
+                            <field name="partner_id"/>
+                            <field name="payment_certificate_no"/>
+                        </group>
+                        <group>
+                            <field name="date_invoice"/>
+                            <field name="validity_date"/>
+                            <field name="notes"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Invoice Lines">
+                            <field name="invoice_line_ids">
+                                <list editable="bottom">
+                                    <field name="product_id"/>
+                                    <field name="quantity"/>
+                                    <field name="price_unit"/>
+                                    <field name="subtotal"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                    <group>
+                        <field name="amount_total" readonly="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_proforma_invoice" model="ir.actions.act_window">
+        <field name="name">Proforma Invoices</field>
+        <field name="res_model">proforma.invoice</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Menu -->
+    <menuitem id="menu_proforma_invoice_root" name="Proforma Invoices" parent="account.menu_finance"/>
+    <menuitem id="menu_proforma_invoice" name="Proforma Invoices" parent="menu_proforma_invoice_root" action="action_proforma_invoice"/>
+</odoo>
